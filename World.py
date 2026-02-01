@@ -1,6 +1,5 @@
 import random
 
-
 class World:
     def __init__(self, width, height):
         self.width = width
@@ -12,6 +11,7 @@ class World:
     def render(self):
         # Start of the render
         self.screen.fill(self.BG_COLOR)
+
 
     def random_position(self) -> tuple[int, int]:
         return random.randint(0, self.width), random.randint(0, self.height)

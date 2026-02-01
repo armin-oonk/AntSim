@@ -18,6 +18,9 @@ pygame.display.set_caption("Ant Colony Simulation")
 running = True
 clock = pygame.time.Clock()
 
+ants = list()
+max_nr_ants = 50
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -26,10 +29,15 @@ while running:
     # Fill background
     world.render()
 
-    # Draw the ants
-    for _ in range(50):
-        ant = Ant(world=world)
-        ant.render()
+    # Create a new ant if we have not reached the max
+    if len(ants) != max_nr_ants:
+        ants.append(Ant(world=world))
+
+    # Run the ants
+    for a in ants:
+        a.run()
+        a.render()
+
 
     # Update the display
     pygame.display.flip()
