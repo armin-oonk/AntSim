@@ -36,7 +36,6 @@ class Ant:
             self.height = initial['height']
 
     def get_new_direction(self) -> Direction:
-
         opposites = {
             Direction.NORTH: Direction.SOUTH,
             Direction.SOUTH: Direction.NORTH,
@@ -47,18 +46,22 @@ class Ant:
         choices = list()
 
         for d in Direction:
-
             if d != opposites.get(self.direction):
                 new_x, new_y = self.get_next_position(d)
-
                 if 0 <= new_x <= self.world.width and 0 <= new_y <= self.world.height:
                     choices.append(d)
 
-        if not choices:
-            return opposites.get(self.direction, get_random_direction())
+        # Create a weighted list, favour the current direction
+        weight = list()
+        for c in choices:
+            if c == self.direction:
+                weight.append(25)
+            else:
+                weight.append(1)
 
+        return random.choices(choices, weights=weight, k=1)[0]
 
-        return random.choice(choices)
+        # return random.choice(choices)
 
     def get_next_position(self, direction: Direction) -> tuple[int, int]:
         new_x = self.x
