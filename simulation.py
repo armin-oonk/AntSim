@@ -4,6 +4,7 @@ import random
 from Ant import Ant
 from Nest import Nest
 from World import World
+from Food import Food
 
 # Initialize Pygame
 pygame.init()
@@ -24,6 +25,11 @@ clock = pygame.time.Clock()
 nest = Nest(world=world, x=width/2, y=height/2, color=(255, 0, 0), size=10.0)
 ants = list()
 max_nr_ants = 50
+
+# Add some food
+for _ in range(5):
+    fx, fy = world.random_position()
+    world.add_food(Food(world, fx, fy, 100))
 
 while running:
     for event in pygame.event.get():
