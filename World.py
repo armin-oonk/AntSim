@@ -13,5 +13,5 @@ class World:
         self.screen.fill(self.BG_COLOR)
 
 
-    def random_position(self) -> tuple[int, int]:
-        return random.randint(0, self.width), random.randint(0, self.height)
+    def random_position(self) -> tuple[float, float]:
+        return random.uniform(0, self.width), random.uniform(0, self.height)
