@@ -23,29 +23,21 @@ def limit(val: float, min_val: float, max_val: float) -> float:
         return val
 
 class Ant:
-    def __init__(self, world: World, initial: dict=None):
+    def __init__(self, world: World, x: float, y: float, size: float, color: tuple[int, int, int]):
         self.world = world
-        self.ANT_COLOR = (255, 0, 0)  # Red ants
+        self.ANT_COLOR = color  # Red ants
         self.step_size = 2.0
 
-        if initial is None:
-            self.x, self.y = self.world.random_position()
-            self.direction = random.random()
-
-            self.width = 5
-            self.height = 5
-        else:
-            self.x = initial['x']
-            self.y = initial['y']
-            self.direction = initial['direction']
-            self.width = initial['width']
-            self.height = initial['height']
+        self.x = x
+        self.y = y
+        self.direction = random.random()
+        self.size = size
 
     def get_new_direction(self) -> float:
         # Generate a new random direction based on the old direction
         # Add a Gaussian random number to the current direction
         # Adjust the standard deviation (e.g., 0.1) to control how much the ant turns
-        new_direction = self.direction + random.gauss(0, 0.1)
+        new_direction = self.direction + random.gauss(0, 0.05)
         return new_direction
 
     def run(self):
@@ -59,5 +51,5 @@ class Ant:
 
     def render(self):
         # Draw a rectangle in the world
-        rect = pygame.Rect(self.x, self.y, self.width, self.width)
+        rect = pygame.Rect(self.x, self.y, self.size, self.size)
         pygame.draw.rect(self.world.screen, self.ANT_COLOR, rect)
